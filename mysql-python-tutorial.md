@@ -1,12 +1,10 @@
 ## MySQL Python tutorial
 
-
-
-
+[原文地址](http://zetcode.com/db/mysqlpython/) 
 
 This is a Python programming tutorial for the MySQL database. It covers the basics of MySQL programming with Python. It uses the MySQLdb module. The examples were created and tested on Ubuntu Linux.
 
-There is a similar PostgreSQL Python tutorial, MySQL Visual Basic tutorial, or MySQL PHP tutorial on ZetCode. SQLAlchemy tutorial covers SQLAlchemy SQL Toolkit and Object Relational Mapper. If you need to refresh your knowledge of the Python language, there is a full Python tutorial. You may also consider to look at the MySQL tutorial, too.
+There is a similar [PostgreSQL Python tutorial](http://zetcode.com/db/postgresqlpythontutorial/), [MySQL Visual Basic tutorial](http://zetcode.com/db/mysqlvb/), or [MySQL PHP tutorial on ZetCode](http://zetcode.com/databases/mysqlphptutorial/). [SQLAlchemy tutorial](http://zetcode.com/db/sqlalchemy/) covers SQLAlchemy SQL Toolkit and Object Relational Mapper. If you need to refresh your knowledge of the Python language, there is a full [Python tutorial](http://zetcode.com/lang/python/). You may also consider to look at the [MySQL tutorial](http://zetcode.com/databases/mysqltutorial/), too.
 
 
 ### About MySQL database
@@ -135,9 +133,7 @@ try:
 
     cur = con.cursor()
     cur.execute("SELECT VERSION()")
-
-    ver = cur.fetchone()
-    
+	ver = cur.fetchone()
     print "Database version : %s " % ver
     
 except mdb.Error, e:
@@ -188,8 +184,7 @@ We print the data that we have retrieved to the console.
 
 ```
 except mdb.Error, e:
-  
-    print "Error %d: %s" % (e.args[0],e.args[1])
+  	print "Error %d: %s" % (e.args[0],e.args[1])
     sys.exit(1)
 ```
 
@@ -197,7 +192,6 @@ We check for errors. This is important, since working with databases is error pr
 
 ```
 finally:    
-        
     if con:    
         con.close()
 ```
@@ -291,10 +285,8 @@ with con:
 
     cur = con.cursor()
     cur.execute("SELECT * FROM Writers")
-
-    rows = cur.fetchall()
-
-    for row in rows:
+	rows = cur.fetchall()
+	for row in rows:
         print row
 ```
 
@@ -446,8 +438,7 @@ with con:
     cur.execute("SELECT * FROM Writers LIMIT 5")
 
     rows = cur.fetchall()
-
-    desc = cur.description
+	desc = cur.description
 
     print "%s %3s" % (desc[0][0], desc[1][0])
 
@@ -491,6 +482,7 @@ Ouput of the script.
 ### Prepared statements
 
 Now we will concern ourselves with prepared statements. When we write prepared statements, we use placeholders instead of directly writing the values into the statements. Prepared statements increase security and performance. The Python DB API specification suggests 5 different ways how to build prepared statements. The MySQLdb module supports one of them, the ANSI printf format codes.
+
 
 ```
 #!/usr/bin/python
@@ -555,7 +547,6 @@ For this example, we create a new table called Images.
 
 import MySQLdb as mdb
 
-
 def read_image():
     
     fin = open("woman.jpg")    
@@ -563,7 +554,6 @@ def read_image():
     
     return img
     
-
 con = mdb.connect('localhost', 'testuser', 'test623', 'testdb')
  
 with con:
@@ -586,6 +576,7 @@ def read_image():
 
 The read_image() method reads binary data from the JPG file, located in the current working directory.
 
+
 ```
 cur.execute("INSERT INTO Images VALUES(1, %s)", (data, ))
 ```
@@ -605,7 +596,6 @@ import MySQLdb as mdb
 def writeImage(data):
     
     fout = open('woman2.jpg', 'wb')
-    
     with fout:
         
         fout.write(data)
@@ -615,8 +605,7 @@ con = mdb.connect('localhost', 'testuser', 'test623', 'testdb')
 with con:
 
     cur = con.cursor()
-
-    cur.execute("SELECT Data FROM Images WHERE Id=1")
+	cur.execute("SELECT Data FROM Images WHERE Id=1")
     data = cur.fetchone()[0]
     writeImage(data)    
 ```
@@ -658,7 +647,6 @@ The MySQL database has different types of storage engines. The most common are t
 import MySQLdb as mdb
 import sys
 
-
 try:
     con = mdb.connect('localhost', 'testuser', 'test623', 'testdb')
 
@@ -675,7 +663,6 @@ try:
     
     con.commit()
 
-    
 except mdb.Error, e:
   
     if con:
